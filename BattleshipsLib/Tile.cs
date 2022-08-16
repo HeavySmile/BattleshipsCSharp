@@ -6,7 +6,7 @@ namespace BattleshipsLib
     {
         public int X { get; }
         public int Y { get; }
-        public TileContent Content{ get; }
+        public TileContent Content{ get; set;}
         public Tile(int x, int y)
         {
             X = x;
@@ -24,6 +24,9 @@ namespace BattleshipsLib
                     break;
                 case TileContent.MISS:
                     output = "[M]";
+                    break;
+                case TileContent.SHIP:
+                    output = "[0]";
                     break;
                 default:
                     output = "[~]";
