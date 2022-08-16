@@ -1,0 +1,12 @@
+/Users/leoshubin/Documents/C#/Battleships/BattleshipsLib/bin/Debug/net6.0/BattleshipsLib.deps.json
+/Users/leoshubin/Documents/C#/Battleships/BattleshipsLib/bin/Debug/net6.0/BattleshipsLib.dll
+/Users/leoshubin/Documents/C#/Battleships/BattleshipsLib/bin/Debug/net6.0/BattleshipsLib.pdb
+/Users/leoshubin/Documents/C#/Battleships/BattleshipsLib/obj/Debug/net6.0/BattleshipsLib.csproj.AssemblyReference.cache
+/Users/leoshubin/Documents/C#/Battleships/BattleshipsLib/obj/Debug/net6.0/BattleshipsLib.GeneratedMSBuildEditorConfig.editorconfig
+/Users/leoshubin/Documents/C#/Battleships/BattleshipsLib/obj/Debug/net6.0/BattleshipsLib.AssemblyInfoInputs.cache
+/Users/leoshubin/Documents/C#/Battleships/BattleshipsLib/obj/Debug/net6.0/BattleshipsLib.AssemblyInfo.cs
+/Users/leoshubin/Documents/C#/Battleships/BattleshipsLib/obj/Debug/net6.0/BattleshipsLib.csproj.CoreCompileInputs.cache
+/Users/leoshubin/Documents/C#/Battleships/BattleshipsLib/obj/Debug/net6.0/BattleshipsLib.dll
+/Users/leoshubin/Documents/C#/Battleships/BattleshipsLib/obj/Debug/net6.0/refint/BattleshipsLib.dll
+/Users/leoshubin/Documents/C#/Battleships/BattleshipsLib/obj/Debug/net6.0/BattleshipsLib.pdb
+/Users/leoshubin/Documents/C#/Battleships/BattleshipsLib/obj/Debug/net6.0/ref/BattleshipsLib.dll
