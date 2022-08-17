@@ -14,7 +14,7 @@ namespace BattleshipsLib
             Content = TileContent.EMPTY;
         }
         
-        public void print()
+        public void printAsFriend()
         {
             string output;
             switch (Content)
@@ -27,6 +27,23 @@ namespace BattleshipsLib
                     break;
                 case TileContent.SHIP:
                     output = "[0]";
+                    break;
+                default:
+                    output = "[~]";
+                    break;     
+            }
+            Console.Write(output);
+        }
+        public void printAsEnemy()
+        {
+            string output;
+            switch (Content)
+            {
+                case TileContent.HIT:
+                    output = "[X]";
+                    break;
+                case TileContent.MISS:
+                    output = "[M]";
                     break;
                 default:
                     output = "[~]";
