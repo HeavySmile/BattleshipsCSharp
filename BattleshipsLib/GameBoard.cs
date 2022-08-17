@@ -3,22 +3,23 @@
 namespace BattleshipsLib
 {
     
-    public class GameBoard
+    public abstract class GameBoard
     {
+        protected const int BOARD_SIZE = 10; 
         public List<List<Tile>> Grid { get; }
         public List<Ship> Ships { get; }
         public GameBoard()
         {
-            Grid = new List<List<Tile>>(10);
-            for(int i = 0; i < 10; i++)
+            Grid = new List<List<Tile>>(BOARD_SIZE);
+            for(int i = 0; i < BOARD_SIZE; i++)
             {
-                Grid.Add(new List<Tile>(10));
-                for(int j = 0; j < 10; j++)
+                Grid.Add(new List<Tile>(BOARD_SIZE));
+                for(int j = 0; j < BOARD_SIZE; j++)
                 {
                     Grid[i].Add(new Tile(i + 1,j + 1));
                 }
             }
-            Ships = new List<Ship>(10);
+            Ships = new List<Ship>(BOARD_SIZE);
         }
         public void addShip(Ship ship)
         {
@@ -36,21 +37,57 @@ namespace BattleshipsLib
                 return true;
             }
 
+            Grid[shotTile.Y - 1][shotTile.X - 1].Content = TileContent.MISS;
             return false;
         }
-        public void print()
+        public abstract void print();
+    }
+
+    public class FriendlyGameBoard : GameBoard
+    {
+        public override void print()
         {
             Console.WriteLine("[  ][A][B][C][D][E][F][G][H][I][J]");
             
-            for (int i = 0; i < 10; i++)
+            for (int i = 0; i < BOARD_SIZE; i++)
             {
-                Console.Write(i != 9 ? $"[ {i+1}]" : $"[{i+1}]");
+                Console.Write(i != BOARD_SIZE - 1 ? $"[ {i+1}]" : $"[{i+1}]");
                 foreach(Tile tile in Grid[i])
                 {
-                    tile.print();
+                    tile.printAsFriend();
                 }    
                 Console.Write("\n");
             }
         }
     }
+
+    public class EnemyGameBoard : GameBoard
+    {
+        const int BOARD_WIDTH_CHAR = 34;
+        const int SPACE_BETWEEN_BOARDS = 3;
+        const int BOARD_HEIGHT_CHAR = 11;
+
+        public override void print()
+        {
+            int currRow = Console.CursorTop;
+            int currCol = Console.CursorLeft;
+            
+            Console.SetCursorPosition(currCol += BOARD_WIDTH_CHAR + SPACE_BETWEEN_BOARDS, currRow -= BOARD_HEIGHT_CHAR);
+            Console.WriteLine("[  ][A][B][C][D][E][F][G][H][I][J]");
+            Console.SetCursorPosition(currCol, currRow++);
+            
+            for (int i = 0; i < BOARD_SIZE; i++)
+            {
+                Console.SetCursorPosition(currCol, currRow++);
+                Console.Write(i != BOARD_SIZE - 1 ? $"[ {i+1}]" : $"[{i+1}]");
+                foreach(Tile tile in Grid[i])
+                {
+                    tile.printAsEnemy();
+                }    
+                
+            }
+            Console.Write("\n");
+        }
+    }
+
 }
