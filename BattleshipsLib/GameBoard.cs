@@ -43,11 +43,11 @@ namespace BattleshipsLib
                         if(Tile.CompareXY(shipTile, shotTile))
                         {
                             ship.takeDamage();
+                            if(ship.isShipSunk()) ships.Remove(ship);
+                            return true;
                         }
                     }
                 }
-
-                return true;
             }
 
             grid[shotTile.Y - 1][shotTile.X - 1].Content = Content.MISS;

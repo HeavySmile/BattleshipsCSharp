@@ -28,5 +28,9 @@ namespace BattleshipsLib
         {
             if(hp > 0) hp--;
         }
+        public bool isShipSunk()
+        {
+            return hp == 0;
+        }
     }
 }
