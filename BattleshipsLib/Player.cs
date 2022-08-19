@@ -17,7 +17,7 @@ namespace BattleshipsLib
         }
         public bool fire(Tile tile)
         {
-            if(enemyBoard == null) throw new Exception("No enemy declared");
+            if(enemyBoard == null) return false;
             
             return enemyBoard.takeShot(tile);
         }
