@@ -15,10 +15,11 @@ namespace BattleshipsLib
         {
             enemyBoard = (IEnemy)enemy.board;
         }
-        public void fire(Tile tile)
+        public bool fire(Tile tile)
         {
             if(enemyBoard == null) throw new Exception("No enemy declared");
-            enemyBoard.takeShot(tile);
+            
+            return enemyBoard.takeShot(tile);
         }
         public void addShip(Ship ship)
         {
