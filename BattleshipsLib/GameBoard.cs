@@ -5,7 +5,6 @@ namespace BattleshipsLib
     public interface IAlly
     {
         void addShip(Ship ship);
-        bool takeShot(Tile tile);
         void printShipsInfo();
         void display();
 
@@ -15,6 +14,7 @@ namespace BattleshipsLib
         const int BOARD_WIDTH_CHAR = 34;
         const int SPACE_BETWEEN_BOARDS = 3;
         const int BOARD_HEIGHT_CHAR = 11;
+        bool takeShot(Tile tile);
         void display();
     }
     public class GameBoard : IAlly, IEnemy
@@ -82,29 +82,6 @@ namespace BattleshipsLib
                 grid[tile.Y - 1][tile.X - 1].Content = Content.SHIP;
             }
         }
-        bool IAlly.takeShot(Tile shotTile)
-        {
-            if(grid[shotTile.Y - 1][shotTile.X - 1].Content == Content.SHIP)
-            {
-                grid[shotTile.Y - 1][shotTile.X - 1].Content = Content.HIT;
-                
-                foreach(Ship ship in ships)
-                {
-                    foreach (Tile shipTile in ship.Tiles)
-                    {
-                        if(Tile.CompareXY(shipTile, shotTile))
-                        {
-                            ship.takeDamage();
-                            if(ship.isShipSunk()) ships.Remove(ship);
-                            return true;
-                        }
-                    }
-                }
-            }
-
-            grid[shotTile.Y - 1][shotTile.X - 1].Content = Content.MISS;
-            return false;
-        }
         void IAlly.printShipsInfo()
         {
             foreach (Ship ship in ships)
@@ -126,6 +103,29 @@ namespace BattleshipsLib
                 }    
                 Console.Write("\n");
             }
+        }
+        bool IEnemy.takeShot(Tile shotTile)
+        {
+            if(grid[shotTile.Y - 1][shotTile.X - 1].Content == Content.SHIP)
+            {
+                grid[shotTile.Y - 1][shotTile.X - 1].Content = Content.HIT;
+                
+                foreach(Ship ship in ships)
+                {
+                    foreach (Tile shipTile in ship.Tiles)
+                    {
+                        if(Tile.CompareXY(shipTile, shotTile))
+                        {
+                            ship.takeDamage();
+                            if(ship.isShipSunk()) ships.Remove(ship);
+                            return true;
+                        }
+                    }
+                }
+            }
+
+            grid[shotTile.Y - 1][shotTile.X - 1].Content = Content.MISS;
+            return false;
         }
         void IEnemy.display()
         {
