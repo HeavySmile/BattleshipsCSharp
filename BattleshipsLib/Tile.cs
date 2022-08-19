@@ -94,6 +94,8 @@ namespace BattleshipsLib
     
     public class Tile
     {
+        private const int XY_MAX_VALUE = 10;
+        private const int XY_MIN_VALUE = 1;
         private int x;
         private int y;
 
@@ -111,8 +113,14 @@ namespace BattleshipsLib
             get { return content; }
             set { content = value; }
         }
+        private bool isXYValid(int x, int y)
+        {
+            return x >= XY_MIN_VALUE && x <= XY_MAX_VALUE && 
+                   y >= XY_MIN_VALUE && y <= XY_MAX_VALUE;
+        }
         public Tile(int x, int y)
         {
+            if(!isXYValid(x,y)) throw new Exception("Invalid xy initialization");
             this.x = x;
             this.y = y;
             this.content = Content.EMPTY;
