@@ -24,5 +24,12 @@ namespace BattleshipsLib
         {
             board.addShip(ship);
         }
+
+        public void display()
+        {
+            if(enemyBoard == null) throw new Exception("No enemy declared");
+            board.display();
+            enemyBoard.display();
+        }
     }
 }
