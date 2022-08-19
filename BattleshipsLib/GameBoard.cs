@@ -19,10 +19,47 @@ namespace BattleshipsLib
     }
     public class GameBoard : IAlly, IEnemy
     {
-        protected const int BOARD_SIZE = 10;
-        protected List<List<Tile>> grid;
-        protected List<Ship> ships;
+        private const int BOARD_SIZE = 10;
+        private List<List<Tile>> grid;
+        private List<Ship> ships;
 
+        private void printTileAsAlly(Tile tile)
+        {
+            string output;
+            switch(tile.Content)
+            {
+                case Content.HIT:
+                    output = "[X]";
+                    break;
+                case Content.MISS:
+                    output = "[M]";
+                    break;
+                case Content.SHIP:
+                    output = "[O]";
+                    break;
+                default:
+                    output = "[~]";
+                    break;
+            }
+            Console.Write(output);
+        }
+        private void printTileAsEnemy(Tile tile)
+        {
+            string output;
+            switch(tile.Content)
+            {
+                case Content.HIT:
+                    output = "[X]";
+                    break;
+                case Content.MISS:
+                    output = "[M]";
+                    break;
+                default:
+                    output = "[~]";
+                    break;
+            }
+            Console.Write(output);
+        }
         public GameBoard()
         {
             grid = new List<List<Tile>>(BOARD_SIZE);
@@ -85,23 +122,7 @@ namespace BattleshipsLib
                 Console.Write(i != BOARD_SIZE - 1 ? $"[ {i+1}]" : $"[{i+1}]");
                 foreach(Tile tile in grid[i])
                 {
-                    string output;
-                    switch(tile.Content)
-                    {
-                        case Content.HIT:
-                            output = "[X]";
-                            break;
-                        case Content.MISS:
-                            output = "[M]";
-                            break;
-                        case Content.SHIP:
-                            output = "[O]";
-                            break;
-                        default:
-                            output = "[~]";
-                            break;
-                    }
-                    Console.Write(output);
+                    printTileAsAlly(tile);
                 }    
                 Console.Write("\n");
             }
@@ -124,20 +145,7 @@ namespace BattleshipsLib
                 Console.Write(i != BOARD_SIZE - 1 ? $"[ {i+1}]" : $"[{i+1}]");
                 foreach(Tile tile in grid[i])
                 {
-                    string output;
-                    switch(tile.Content)
-                    {
-                        case Content.HIT:
-                            output = "[X]";
-                            break;
-                        case Content.MISS:
-                            output = "[M]";
-                            break;
-                        default:
-                            output = "[~]";
-                            break;
-                    }
-                    Console.Write(output);
+                    printTileAsEnemy(tile);
                 }     
             }
             Console.Write("\n");
