@@ -138,13 +138,7 @@ namespace BattleshipsLib
         
         bool IAlly.addShip(Ship ship)
         {   
-            if(!isShipLengthValid(ship.Tiles.Count)) return false;
-            
-            if(!isShipAreaAvailable(ship)) 
-            {
-                Console.WriteLine("Area not valid");
-                return false;
-            }
+            if(!isShipLengthValid(ship.Tiles.Count) || !isShipAreaAvailable(ship)) return false;
             
             increaseShipCountByLength(ship.Tiles.Count);
             
