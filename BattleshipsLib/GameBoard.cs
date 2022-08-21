@@ -4,10 +4,9 @@ namespace BattleshipsLib
 {
     public interface IAlly
     {
-        void addShip(Ship ship);
+        bool addShip(Ship ship);
         void printShipsInfo();
         void display();
-
     }
     public interface IEnemy
     {
@@ -19,9 +18,55 @@ namespace BattleshipsLib
     }
     public class GameBoard : IAlly, IEnemy
     {
+        private const int CARRIER_MAX_COUNT = 1;
+        private const int BATTLESHIP_MAX_COUNT = 2;
+        private const int DESTROYER_MAX_COUNT = 3;
+        private const int PATROLBOAT_MAX_COUNT = 4;
+        private int carrierCount;
+        private int battleshipCount;
+        private int destroyerCount;
+        private int patrolBoatCount;
+
         private const int BOARD_SIZE = 10;
         private List<List<Tile>> grid;
         private List<Ship> ships;
+
+        private void increaseShipCountByLength(int length)
+        {
+            switch(length)
+            {
+                case 5:
+                    carrierCount++;
+                    break;
+                case 4:
+                    battleshipCount++;
+                    break;
+                case 3:
+                    destroyerCount++;
+                    break;
+                case 2:
+                    patrolBoatCount++;
+                    break;
+                default:
+                    return;
+            }
+        }
+        private bool isShipLengthValid(int length)
+        {
+            switch(length)
+            {
+                case 5:
+                    return carrierCount < CARRIER_MAX_COUNT ? true : false;
+                case 4:
+                    return battleshipCount < BATTLESHIP_MAX_COUNT ? true : false;
+                case 3:
+                    return destroyerCount < DESTROYER_MAX_COUNT ? true : false;
+                case 2:
+                    return patrolBoatCount < PATROLBOAT_MAX_COUNT ? true : false;
+                default:
+                    return false;
+            }
+        }
 
         private void printTileAsAlly(Tile tile)
         {
@@ -74,13 +119,18 @@ namespace BattleshipsLib
             ships = new List<Ship>(BOARD_SIZE);
         }
         
-        void IAlly.addShip(Ship ship)
-        {
-            ships.Add(ship);
+        bool IAlly.addShip(Ship ship)
+        {   
+            if(!isShipLengthValid(ship.Tiles.Count)) return false;
+            
+            increaseShipCountByLength(ship.Tiles.Count);
+            
+            ships.Add(ship);   
             foreach (Tile tile in ship.Tiles)
             {
                 grid[tile.Y - 1][tile.X - 1].Content = Content.SHIP;
             }
+            return true;
         }
         void IAlly.printShipsInfo()
         {
