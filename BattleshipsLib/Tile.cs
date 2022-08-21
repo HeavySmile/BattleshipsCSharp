@@ -24,7 +24,7 @@ namespace BattleshipsLib
             get { return content; }
             set { content = value; }
         }
-        private bool isXYValid(int x, int y)
+        static public bool isXYValid(int x, int y)
         {
             return x >= XY_MIN_VALUE && x <= XY_MAX_VALUE && 
                    y >= XY_MIN_VALUE && y <= XY_MAX_VALUE;
