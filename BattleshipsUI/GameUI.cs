@@ -18,7 +18,7 @@ namespace BattleshipsUI
         {
             if(userInput == null) return null;
 
-            Match regexMatch = Regex.Match(userInput, @"^(?<tile>[A-J][1-9]|10)\s(?<dir>R|L|T|B)\s(?<len>[2-5]){1}$");
+            Match regexMatch = Regex.Match(userInput, @"^(?<tile>[A-J]([1-9]|10))\s(?<dir>R|L|T|B)\s(?<len>[2-5]){1}$");
             
             if(!regexMatch.Success) return null;
             
