@@ -3,99 +3,10 @@ namespace BattleshipsLib
 {
     public enum Content { HIT, MISS, SHIP, EMPTY}
     
-    // public class Tile
-    // {
-    //     private int x;
-    //     private int y;
-    //     private Content content;
-    //     private Ship? shipRef;
-    //     public int X 
-    //     {
-    //         get { return x;}
-    //         set { x = value;}
-    //     }
-    //     public int Y 
-    //     {
-    //         get { return y;}
-    //         set { y = value;}
-    //     }
-    //     public Content Content 
-    //     { 
-    //         get { return content; }
-    //     }
-    //     public Ship? ShipRef 
-    //     { 
-    //         get { return shipRef; }
-    //         set 
-    //         { 
-    //             shipRef = value; 
-    //             content = Content.SHIP;
-    //         }
-    //     }
-
-    //     public Tile(int x, int y)
-    //     {
-    //         this.x = x;
-    //         this.y = y;
-    //         content = Content.EMPTY;
-    //         shipRef = null;
-    //     }
-
-    //     public void takeShot()
-    //     {
-    //         if(content == Content.SHIP && shipRef != null)
-    //         {
-    //             shipRef.takeDamage();
-    //             content = Content.HIT;
-    //             shipRef = null;
-    //             return;
-    //         }
-
-    //         content = Content.MISS;
-    //     }
-    //     public void printAsFriend()
-    //     {
-    //         string output;
-    //         switch (Content)
-    //         {
-    //             case Content.HIT:
-    //                 output = "[X]";
-    //                 break;
-    //             case Content.MISS:
-    //                 output = "[M]";
-    //                 break;
-    //             case Content.SHIP:
-    //                 output = "[0]";
-    //                 break;
-    //             default:
-    //                 output = "[~]";
-    //                 break;     
-    //         }
-    //         Console.Write(output);
-    //     }
-    //     public void printAsEnemy()
-    //     {
-    //         string output;
-    //         switch (Content)
-    //         {
-    //             case Content.HIT:
-    //                 output = "[X]";
-    //                 break;
-    //             case Content.MISS:
-    //                 output = "[M]";
-    //                 break;
-    //             default:
-    //                 output = "[~]";
-    //                 break;     
-    //         }
-    //         Console.Write(output);
-    //     }
-    // }
-    
     public class Tile
     {
-        private const int XY_MAX_VALUE = 10;
-        private const int XY_MIN_VALUE = 1;
+        public const int XY_MAX_VALUE = 10;
+        public const int XY_MIN_VALUE = 1;
         private int x;
         private int y;
 
