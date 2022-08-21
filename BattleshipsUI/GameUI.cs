@@ -57,6 +57,7 @@ namespace BattleshipsUI
                         y = initialTile.Y + i;
                     }
 
+                if(!Tile.isXYValid(x,y)) return null;
                     shipTiles.Add(new Tile(x, y));
                 }
             }
