@@ -21,9 +21,9 @@ namespace BattleshipsLib
             
             return enemyBoard.takeShot(tile);
         }
-        public void addShip(Ship ship)
+        public bool addShip(Ship ship)
         {
-            board.addShip(ship);
+            return board.addShip(ship);
         }
 
         public void display()
