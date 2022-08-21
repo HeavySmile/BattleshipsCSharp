@@ -31,6 +31,23 @@ namespace BattleshipsLib
         private List<List<Tile>> grid;
         private List<Ship> ships;
 
+        private bool isShipAreaAvailable(Ship ship)
+        {
+            foreach (Tile tile in ship.Tiles)
+            {
+                for (int i = tile.Y - 2; i < tile.Y + 1; i++)
+                {
+                    for (int j = tile.X - 2; j < tile.X + 1; j++)
+                    {
+                        if(i >= Tile.XY_MIN_VALUE - 1 && i <= Tile.XY_MAX_VALUE - 1 && 
+                           j >= Tile.XY_MIN_VALUE - 1 && j <= Tile.XY_MAX_VALUE - 1 &&
+                           grid[i][j].Content == Content.SHIP) return false;
+                    }
+                }
+            }
+            
+            return true;
+        }
         private void increaseShipCountByLength(int length)
         {
             switch(length)
@@ -122,6 +139,12 @@ namespace BattleshipsLib
         bool IAlly.addShip(Ship ship)
         {   
             if(!isShipLengthValid(ship.Tiles.Count)) return false;
+            
+            if(!isShipAreaAvailable(ship)) 
+            {
+                Console.WriteLine("Area not valid");
+                return false;
+            }
             
             increaseShipCountByLength(ship.Tiles.Count);
             
