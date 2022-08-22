@@ -24,11 +24,11 @@ namespace BattleshipsLib
             size = shipTiles.Count;
             hp = shipTiles.Count;
         }
-        public void takeDamage()
+        public void TakeDamage()
         {
             if(hp > 0) hp--;
         }
-        public bool isShipSunk()
+        public bool IsShipSunk()
         {
             return hp == 0;
         }

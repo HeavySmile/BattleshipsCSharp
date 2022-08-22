@@ -11,26 +11,26 @@ namespace BattleshipsLib
             board = new GameBoard();
             enemyBoard = null;
         }
-        public void setEnemy(Player enemy)
+        public void SetEnemy(Player enemy)
         {
             enemyBoard = (IEnemy)enemy.board;
         }
-        public bool fire(Tile tile)
+        public bool Fire(Tile tile)
         {
             if(enemyBoard == null) return false;
             
-            return enemyBoard.takeShot(tile);
+            return enemyBoard.TakeShot(tile);
         }
-        public bool addShip(Ship ship)
+        public bool AddShip(Ship ship)
         {
-            return board.addShip(ship);
+            return board.AddShip(ship);
         }
 
-        public void display()
+        public void Display()
         {
             if(enemyBoard == null) throw new Exception("No enemy declared");
-            board.display();
-            enemyBoard.display();
+            board.Display();
+            enemyBoard.Display();
         }
     }
 }

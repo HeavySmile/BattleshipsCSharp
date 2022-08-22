@@ -11,15 +11,15 @@ namespace BattleshipsLib
         {
             player1 = new Player();
             player2 = new Player();
-            player1.setEnemy(player2);
-            player2.setEnemy(player1);
+            player1.SetEnemy(player2);
+            player2.SetEnemy(player1);
         }
         public Game(Player player1, Player player2)
         {
             this.player1 = player1;
             this.player2 = player2;
-            this.player1.setEnemy(player2);
-            this.player2.setEnemy(player1);
+            this.player1.SetEnemy(player2);
+            this.player2.SetEnemy(player1);
         }
     }
 }

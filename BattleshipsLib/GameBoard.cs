@@ -4,17 +4,17 @@ namespace BattleshipsLib
 {
     public interface IAlly
     {
-        bool addShip(Ship ship);
-        void printShipsInfo();
-        void display();
+        bool AddShip(Ship ship);
+        void PrintShipsInfo();
+        void Display();
     }
     public interface IEnemy
     {
         const int BOARD_WIDTH_CHAR = 34;
         const int SPACE_BETWEEN_BOARDS = 3;
         const int BOARD_HEIGHT_CHAR = 11;
-        bool takeShot(Tile tile);
-        void display();
+        bool TakeShot(Tile tile);
+        void Display();
     }
     public class GameBoard : IAlly, IEnemy
     {
@@ -31,12 +31,23 @@ namespace BattleshipsLib
         private List<List<Tile>> grid;
         private List<Ship> ships;
 
-        public int CarrierCount { get; }
-        public int BattleshipCount { get; }
-        public int DestroyerCount { get; }
-        public int PatrolBoatCount { get; }
-
-        private bool isShipAreaAvailable(Ship ship)
+        public int CarrierCount 
+        {
+            get { return carrierCount; }
+        }
+        public int BattleshipCount 
+        {
+            get { return battleshipCount; }
+        }
+        public int DestroyerCount 
+        { 
+            get { return destroyerCount; } 
+        }
+        public int PatrolBoatCount 
+        { 
+            get { return patrolBoatCount; }
+        }
+        private bool IsShipAreaAvailable(Ship ship)
         {
             foreach (Tile tile in ship.Tiles)
             {
@@ -53,7 +64,7 @@ namespace BattleshipsLib
             
             return true;
         }
-        private void increaseShipCountByLength(int length)
+        private void IncreaseShipCountByLength(int length)
         {
             switch(length)
             {
@@ -73,7 +84,7 @@ namespace BattleshipsLib
                     return;
             }
         }
-        private bool isShipLengthValid(int length)
+        private bool IsShipLengthValid(int length)
         {
             switch(length)
             {
@@ -90,7 +101,7 @@ namespace BattleshipsLib
             }
         }
 
-        private void printTileAsAlly(Tile tile)
+        private void PrintTileAsAlly(Tile tile)
         {
             string output;
             switch(tile.Content)
@@ -110,7 +121,7 @@ namespace BattleshipsLib
             }
             Console.Write(output);
         }
-        private void printTileAsEnemy(Tile tile)
+        private void PrintTileAsEnemy(Tile tile)
         {
             string output;
             switch(tile.Content)
@@ -141,11 +152,11 @@ namespace BattleshipsLib
             ships = new List<Ship>(BOARD_SIZE);
         }
         
-        bool IAlly.addShip(Ship ship)
+        bool IAlly.AddShip(Ship ship)
         {   
-            if(!isShipLengthValid(ship.Tiles.Count) || !isShipAreaAvailable(ship)) return false;
+            if(!IsShipLengthValid(ship.Tiles.Count) || !IsShipAreaAvailable(ship)) return false;
             
-            increaseShipCountByLength(ship.Tiles.Count);
+            IncreaseShipCountByLength(ship.Tiles.Count);
             
             ships.Add(ship);   
             foreach (Tile tile in ship.Tiles)
@@ -154,7 +165,7 @@ namespace BattleshipsLib
             }
             return true;
         }
-        void IAlly.printShipsInfo()
+        void IAlly.PrintShipsInfo()
         {
             foreach (Ship ship in ships)
             {
@@ -162,7 +173,7 @@ namespace BattleshipsLib
             }
         }
 
-        void IAlly.display()
+        void IAlly.Display()
         {
             Console.WriteLine("[  ][A][B][C][D][E][F][G][H][I][J]");
             
@@ -171,12 +182,12 @@ namespace BattleshipsLib
                 Console.Write(i != BOARD_SIZE - 1 ? $"[ {i+1}]" : $"[{i+1}]");
                 foreach(Tile tile in grid[i])
                 {
-                    printTileAsAlly(tile);
+                    PrintTileAsAlly(tile);
                 }    
                 Console.Write("\n");
             }
         }
-        bool IEnemy.takeShot(Tile shotTile)
+        bool IEnemy.TakeShot(Tile shotTile)
         {
             if(grid[shotTile.Y - 1][shotTile.X - 1].Content == Content.SHIP)
             {
@@ -188,8 +199,8 @@ namespace BattleshipsLib
                     {
                         if(Tile.CompareXY(shipTile, shotTile))
                         {
-                            ship.takeDamage();
-                            if(ship.isShipSunk()) ships.Remove(ship);
+                            ship.TakeDamage();
+                            if(ship.IsShipSunk()) ships.Remove(ship);
                             return true;
                         }
                     }
@@ -199,7 +210,7 @@ namespace BattleshipsLib
             grid[shotTile.Y - 1][shotTile.X - 1].Content = Content.MISS;
             return false;
         }
-        void IEnemy.display()
+        void IEnemy.Display()
         {
             int currRow = Console.CursorTop;
             int currCol = Console.CursorLeft;
@@ -217,7 +228,7 @@ namespace BattleshipsLib
                 Console.Write(i != BOARD_SIZE - 1 ? $"[ {i+1}]" : $"[{i+1}]");
                 foreach(Tile tile in grid[i])
                 {
-                    printTileAsEnemy(tile);
+                    PrintTileAsEnemy(tile);
                 }     
             }
             Console.Write("\n");

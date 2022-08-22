@@ -5,7 +5,7 @@ namespace BattleshipsUI
 {
     public class GameUI : Game
     {
-        private Tile? parseUserTileInput(string? userInput)
+        private Tile? ParseUserTileInput(string? userInput)
         {
             if(userInput == null) return null;
 
@@ -14,7 +14,7 @@ namespace BattleshipsUI
             return !regexMatch.Success ? null : new Tile (regexMatch.Groups["x"].Value[0] - 'A' + 1, 
                                                           Int32.Parse(regexMatch.Groups["y"].Value));
         }
-        private List<Tile>? parseUserShipInput(string? userInput)
+        private List<Tile>? ParseUserShipInput(string? userInput)
         {
             if(userInput == null) return null;
 
@@ -25,7 +25,7 @@ namespace BattleshipsUI
             int length = Int32.Parse(regexMatch.Groups["len"].Value);
             string direction = regexMatch.Groups["dir"].Value;
             List<Tile> shipTiles = new List<Tile>();
-            Tile? initialTile = parseUserTileInput(regexMatch.Groups["tile"].Value);
+            Tile? initialTile = ParseUserTileInput(regexMatch.Groups["tile"].Value);
                 
             if(initialTile == null) return null;
             
@@ -54,32 +54,32 @@ namespace BattleshipsUI
                     y = initialTile.Y + i;
                 }
                 
-                if(!Tile.isXYValid(x,y)) return null;
+                if(!Tile.IsXYValid(x,y)) return null;
                 shipTiles.Add(new Tile(x, y));
             }
            
             return shipTiles;
         }
-        private void turn(Player player)
+        private void Turn(Player player)
         {
             bool endTurn = false;
             
             Console.WriteLine();
-            player.display();
+            player.Display();
             
             do
             {
                 Console.WriteLine();
                 Console.Write("Choose position to fire at: ");
-                Tile? shotTile = parseUserTileInput(Console.ReadLine());
+                Tile? shotTile = ParseUserTileInput(Console.ReadLine());
                 
                 if(shotTile == null) continue;
                 
                 endTurn = true;
-                if(player.fire(shotTile))
+                if(player.Fire(shotTile))
                 {
                     Console.Clear();
-                    player.display();
+                    player.Display();
                     Console.WriteLine();
                     Console.WriteLine("Successful hit!");
                     endTurn = false;
@@ -88,7 +88,7 @@ namespace BattleshipsUI
             while(endTurn != true);
         }
         
-        public void startPrep()
+        public void StartPrep()
         {
             int counter = 20;
             Player currPlayer = player1;
@@ -100,7 +100,7 @@ namespace BattleshipsUI
                 Console.Clear();
                 if(counter == 10)
                 {
-                    currPlayer.display();
+                    currPlayer.Display();
                     Console.WriteLine("Press Enter to continue\n");
                     Console.ReadLine();    
                     
@@ -113,13 +113,13 @@ namespace BattleshipsUI
                     Console.WriteLine("Now Player 1 must deploy their fleet\n");    
                 }
 
-                currPlayer.display();
+                currPlayer.Display();
                 
                 Console.Write("\nDeploy your ship: ");
                 
                 userInput = Console.ReadLine();
                 
-                List<Tile>? shipTiles = parseUserShipInput(userInput);
+                List<Tile>? shipTiles = ParseUserShipInput(userInput);
                 
                 if(shipTiles == null)
                 {
@@ -128,7 +128,7 @@ namespace BattleshipsUI
                     continue;
                 }
                 
-                if(!currPlayer.addShip(new Ship(shipTiles)))
+                if(!currPlayer.AddShip(new Ship(shipTiles)))
                 {
                     Console.Write("Too close to already set ship");
                     Console.ReadLine();
@@ -139,7 +139,7 @@ namespace BattleshipsUI
             }
             while(counter != 0);
         }
-        public void startGame()
+        public void StartGame()
         {
             bool turnTicker = true;
             int i = 0;
@@ -159,7 +159,7 @@ namespace BattleshipsUI
                     currPlayer = player2;
                 }
 
-                turn(currPlayer);
+                Turn(currPlayer);
                 i++;
             }
             while(i != 4);
