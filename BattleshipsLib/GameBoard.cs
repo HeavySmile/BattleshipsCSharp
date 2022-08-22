@@ -31,6 +31,11 @@ namespace BattleshipsLib
         private List<List<Tile>> grid;
         private List<Ship> ships;
 
+        public int CarrierCount { get; }
+        public int BattleshipCount { get; }
+        public int DestroyerCount { get; }
+        public int PatrolBoatCount { get; }
+
         private bool isShipAreaAvailable(Ship ship)
         {
             foreach (Tile tile in ship.Tiles)
