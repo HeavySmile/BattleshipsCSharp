@@ -28,45 +28,36 @@ namespace BattleshipsUI
             Tile? initialTile = parseUserTileInput(regexMatch.Groups["tile"].Value);
                 
             if(initialTile == null) return null;
-
-            // TBD a function that checks for invalid Tile initialization
-            try
-            {
-                for (int i = 0; i < length; i++)
-                {
-                    int x, y;
-                    
-                    if(String.Equals(direction, "R"))
-                    {
-                        x = initialTile.X + i;
-                        y = initialTile.Y;
-                    }
-                    else if(String.Equals(direction, "L")) 
-                    {
-                        x = initialTile.X - i;
-                        y = initialTile.Y;
-                    }
-                    else if(String.Equals(direction, "T"))
-                    {
-                        x = initialTile.X;
-                        y = initialTile.Y - i;
-                    }
-                    else
-                    {
-                        x = initialTile.X;
-                        y = initialTile.Y + i;
-                    }
-
-                if(!Tile.isXYValid(x,y)) return null;
-                    shipTiles.Add(new Tile(x, y));
-                }
-            }
-            catch(Exception) 
-            {
-                return null;
-            }
             
-        
+            for (int i = 0; i < length; i++)
+            {
+                int x, y;
+                
+                if(String.Equals(direction, "R"))
+                {
+                    x = initialTile.X + i;
+                    y = initialTile.Y;
+                }
+                else if(String.Equals(direction, "L")) 
+                {
+                    x = initialTile.X - i;
+                    y = initialTile.Y;
+                }
+                else if(String.Equals(direction, "T"))
+                {
+                    x = initialTile.X;
+                    y = initialTile.Y - i;
+                }
+                else
+                {
+                    x = initialTile.X;
+                    y = initialTile.Y + i;
+                }
+                
+                if(!Tile.isXYValid(x,y)) return null;
+                shipTiles.Add(new Tile(x, y));
+            }
+           
             return shipTiles;
         }
         private void turn(Player player)
@@ -99,25 +90,52 @@ namespace BattleshipsUI
         
         public void startPrep()
         {
-            int counter = 10;
+            int counter = 20;
+            Player currPlayer = player1;
+    
             do
             {
                 string? userInput;
 
-                Console.Write("Deploy your ship: ");
+                Console.Clear();
+                if(counter == 10)
+                {
+                    currPlayer.display();
+                    Console.WriteLine("Press Enter to continue\n");
+                    Console.ReadLine();    
+                    
+                    Console.Clear();
+                    currPlayer = player2;
+                    Console.WriteLine("Now Player 2 must deploy their fleet\n");    
+                }
+                else
+                {
+                    Console.WriteLine("Now Player 1 must deploy their fleet\n");    
+                }
+
+                currPlayer.display();
+                
+                Console.Write("\nDeploy your ship: ");
+                
                 userInput = Console.ReadLine();
                 
                 List<Tile>? shipTiles = parseUserShipInput(userInput);
                 
                 if(shipTiles == null)
                 {
-                    player1.display();
-                    return;
+                    Console.WriteLine("Invalid ship configuration. Press Enter to continue.");
+                    Console.ReadLine();
+                    continue;
                 }
-
-                player1.addShip(new Ship(shipTiles));
                 
-                player1.display();
+                if(!currPlayer.addShip(new Ship(shipTiles)))
+                {
+                    Console.Write("Too close to already set ship");
+                    Console.ReadLine();
+                    continue;
+                }
+                
+                counter--;
             }
             while(counter != 0);
         }
